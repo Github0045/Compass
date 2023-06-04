@@ -60,10 +60,13 @@
   </div>
   <script>
     const needle = document.getElementById('needle');
-
+    const qiblaLat = 21.4225;
+    const qiblaLng = 39.8262;
+    
     function handleOrientation(event) {
       const alpha = event.alpha;
-      needle.style.transform = `rotate(${alpha}deg)`;
+      const northAngle = -1 * (Math.atan2(Math.sin((qiblaLng * Math.PI / 180) - (alpha * Math.PI / 180)), Math.cos(qiblaLat * Math.PI / 180) * Math.tan(qiblaLng * Math.PI / 180) - Math.sin(qiblaLat * Math.PI / 180) * Math.cos((qiblaLng * Math.PI / 180) - (alpha * Math.PI / 180))) * 180 / Math.PI);
+      needle.style.transform = `rotate(${northAngle}deg)`;
     }
 
     window.addEventListener('deviceorientation', handleOrientation);
