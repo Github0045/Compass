@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Compass</title>
+  <style>
+    #compass {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      border: 1px solid black;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+    #compass span {
+      position: absolute;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      text-shadow: 1px 1px white;
+    }
+    #compass span.north {
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    #compass span.east {
+      top: 50%;
+      left: calc(100% - 30px);
+      transform: translateY(-50%);
+    }
+    #compass span.south {
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    #compass span.west {
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+    }
+    #needle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 2px;
+      height: 80px;
+      background-color: red;
+      transform-origin: bottom center;
+    }
+  </style>
+</head>
+<body>
+  <div id="compass">
+    <span class="north">N</span>
+    <span class="east">E</span>
+    <span class="south">S</span>
+    <span class="west">W</span>
+    <div id="needle"></div>
+  </div>
+  <script>
+    const needle = document.getElementById('needle');
+
+    function handleOrientation(event) {
+      const alpha = event.alpha;
+      needle.style.transform = `rotate(${alpha}deg)`;
+    }
+
+    window.addEventListener('deviceorientation', handleOrientation);
+  </script>
+</body>
+</html>
