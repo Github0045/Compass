@@ -11,7 +11,6 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #555;
     }
     #compass {
       position: relative;
@@ -75,22 +74,7 @@
     
     function handleOrientation(event) {
       const alpha = event.alpha;
-      const beta = event.beta;
-      const gamma = event.gamma;
-
-      // Get current location
-      navigator.geolocation.getCurrentPosition(function(position) {
-        const currentLat = position.coords.latitude;
-        const currentLng = position.coords.longitude;
-        // Calculate difference between current location and target location
-        const latDiff = targetLat - currentLat;
-        const lngDiff = targetLng - currentLng;
-        // Calculate the angle between the two points using the arctangent function
-        const angle = Math.atan2(lngDiff, latDiff) * 180 / Math.PI;
-        // Apply the angle to the needle rotation
-        needle.style.transform = `rotate(${angle - alpha}deg)`;
-      });
-
+      needle.style.transform = `rotate(${alpha}deg)`;
     }
 
     window.addEventListener('deviceorientation', handleOrientation);
