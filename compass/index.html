@@ -69,10 +69,27 @@
   </div>
   <script>
     const needle = document.getElementById('needle');
+    const targetLat = 21.4225;
+    const targetLng = 39.8262;
     
     function handleOrientation(event) {
       const alpha = event.alpha;
-      needle.style.transform = `rotate(${alpha}deg)`;
+      const beta = event.beta;
+      const gamma = event.gamma;
+
+      // Get current location
+      navigator.geolocation.getCurrentPosition(function(position) {
+        const currentLat = position.coords.latitude;
+        const currentLng = position.coords.longitude;
+        // Calculate difference between current location and target location
+        const latDiff = targetLat - currentLat;
+        const lngDiff = targetLng - currentLng;
+        // Calculate the angle between the two points using the arctangent function
+        const angle = Math.atan2(lngDiff, latDiff) * 180 / Math.PI;
+        // Apply the angle to the needle rotation
+        needle.style.transform = `rotate(${angle - alpha}deg)`;
+      });
+
     }
 
     window.addEventListener('deviceorientation', handleOrientation);
